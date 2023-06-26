@@ -1,7 +1,7 @@
 interface Puzzle {
   id: number;
   name: string;
-  savedCode: string;
+  savedAnswer: string;
   description: string;
   status: Status;
 }
@@ -17,14 +17,14 @@ const puzzles: Puzzle[] = [
     id: 1,
     name: "puzzle 1",
     description: "part 1\npart2",
-    savedCode: "hi",
+    savedAnswer: "hi",
     status: Status.IN_PROGRESS,
   },
   {
     id: 2,
     name: "puzzle 2",
     description: "part 1\npart2\npart3",
-    savedCode: "",
+    savedAnswer: "",
     status: Status.COMPLETED,
   },
 ];

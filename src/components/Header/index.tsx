@@ -26,12 +26,12 @@ export default function Header({}: Props) {
   const { pathname: currentPath } = useRouter();
 
   return (
-    <nav className="bg-white border-gray-200 dark:bg-gray-900">
+    <nav className="bg-white border-gray-200">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Link href="/" className="flex items-center">
           <img src="/logo.png" alt="logo" className="w-8 mr-3" />
 
-          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
+          <span className="self-center text-2xl font-semibold whitespace-nowrap">
             Tad-Thrust
           </span>
         </Link>
