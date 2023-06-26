@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
-import React, { useState } from "react";
+import { signIn as nextAuthSignIn } from "next-auth/react";
+import React, { SyntheticEvent, useState } from "react";
 import Input from "../../components/Input";
 
 interface Props {}
@@ -8,12 +9,38 @@ interface Props {}
 export default function Login({}: Props) {
   const [isSigningUp, setIsSigningUp] = useState(false);
 
-  const [userName, setUserName] = useState("");
+  const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
 
-  const handleSubmit = () => {
-    // TODO: reference API here
+  const signIn = () =>
+    nextAuthSignIn("credentials", {
+      username,
+      password,
+      redirect: true,
+      callbackUrl: "/puzzles",
+    });
+
+  const handleSubmit = async (event: SyntheticEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (isSigningUp) {
+      const user = await fetch("http://localhost:3000/api/user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          username,
+          password,
+        }),
+      });
+      if (user) {
+        signIn();
+      }
+    } else {
+      signIn();
+    }
   };
 
   return (
@@ -43,7 +70,7 @@ export default function Login({}: Props) {
                 required
                 placeholder="Username"
                 type="text"
-                value={userName}
+                value={username}
                 handleChange={setUserName}
               />
               <Input

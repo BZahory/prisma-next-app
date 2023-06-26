@@ -47,6 +47,8 @@ const handler = NextAuth({
       },
     }),
   ],
+
+  pages: { signIn: "/login" },
 });
 
 export default handler;
