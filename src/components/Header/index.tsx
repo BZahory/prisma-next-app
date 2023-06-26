@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import SignInButton from "../SignInButton";
 
 const ITEM_CLASSES = (isSelected: boolean) =>
   `block border-0 hover:text-blue-700 ${isSelected ? "text-blue-500" : ""}`;
@@ -48,6 +49,7 @@ export default function Header({}: Props) {
               </li>
             ))}
           </ul>
+          <SignInButton />
         </div>
       </div>
     </nav>
