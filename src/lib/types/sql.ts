@@ -5,11 +5,12 @@ export interface User {
 }
 
 export interface Puzzle {
-  id: number;
+  id?: number;
   title: string;
   savedAnswer: string;
   description: string;
   status: Status;
+  answer: string;
 }
 
 export enum Status {

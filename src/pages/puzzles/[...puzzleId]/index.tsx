@@ -1,24 +1,46 @@
 import Header from "@/components/Header";
-import puzzles, { Status } from "@/test/puzzles";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Input from "@/components/Input";
+import { useSession } from "next-auth/react";
+import { Status } from "@/lib/types/sql";
+import useSessionUser from "@/lib/hooks/useSessionUser";
 
 export default function Puzzle() {
   const { asPath: currentPath } = useRouter();
 
   const puzzleId = currentPath.split("/")[2];
 
-  const puzzle = puzzles.find(({ id }) => id === Number(puzzleId));
+  const session = useSession().data?.user;
+
+  const user = useSessionUser();
+
+  const puzzle = user?.puzzles.find(({ id }) => id === Number(puzzleId));
 
   const [answer, setAnswer] = useState(puzzle?.savedAnswer || "");
 
   const handleSubmit = () => {
-    //TODO: Link to API
+    fetch(`http://localhost:3000/api/puzzle/${puzzle?.id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        submittedAnswer: answer,
+      }),
+    });
   };
 
   const handleSave = () => {
-    //TODO: Link to API
+    fetch(`http://localhost:3000/api/puzzle/${puzzle?.id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        savedAnswer: answer,
+      }),
+    });
   };
 
   return puzzle ? (
@@ -26,7 +48,7 @@ export default function Puzzle() {
       <Header />
       <div className="relative flex h-full">
         <div className="flex-1 flex flex-col h-full p-4">
-          <h1 className="text-4xl font-bold self-center">{puzzle.name}</h1>
+          <h1 className="text-4xl font-bold self-center">{puzzle.title}</h1>
           <h3
             className={`text-xl self-center ${
               puzzle.status === Status.COMPLETED
@@ -36,7 +58,9 @@ export default function Puzzle() {
           >
             {puzzle.status}
           </h3>
-          <p className="text-xl whitespace-pre-wrap">{puzzle.description}</p>
+          <p className="text-xl h-3/4 whitespace-pre-wrap overflow-y-scroll">
+            {puzzle.description}
+          </p>
         </div>
 
         <div className="flex-[2] flex flex-col h-full bg-gray-300 p-4 gap-y-5">

@@ -49,11 +49,11 @@ export default function Profile({}: Props) {
             {user.puzzles.map(({ title, description, status, id }) => (
               <Link
                 href={`/puzzles/${id}`}
-                className="flex-1 flex flex-col w-3/4 bg-gray-500 items-center cursor-pointer hover:bg-gray-400 mt-2 rounded-xl"
+                className="flex-1 flex flex-col w-3/4 bg-gray-500 cursor-pointer hover:bg-gray-400 mt-2 rounded-xl p-2"
               >
-                <h1 className="text-3xl font-bold">{title}</h1>
+                <h1 className="text-3xl font-bold self-center">{title}</h1>
                 <h3
-                  className={`text-xl ${
+                  className={`text-xl self-center ${
                     status === Status.COMPLETED
                       ? "text-green-500"
                       : "text-slate-800"
@@ -61,7 +61,9 @@ export default function Profile({}: Props) {
                 >
                   {status}
                 </h3>
-                <p className="whitespace-pre-wrap">{description}</p>
+                <p className="whitespace-pre-wrap line-clamp-2">
+                  {description}
+                </p>
               </Link>
             ))}
           </div>
