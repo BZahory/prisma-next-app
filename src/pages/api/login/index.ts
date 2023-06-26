@@ -1,6 +1,7 @@
 import prisma from "@/lib/prisma";
 import bcrypt from "bcrypt";
 import { Request, Response } from "express";
+import { signJwtAccessToken } from "@/lib/jwt";
 
 interface RequestBody {
   username: string;
@@ -21,7 +22,12 @@ export default async function POST(req: Request, res: Response) {
     (await bcrypt.compare(password, userFromDatabase.password))
   ) {
     const { password, ...userWithoutPassword } = userFromDatabase;
-    res.status(200).json(userWithoutPassword);
+    const accessToken = signJwtAccessToken(userWithoutPassword);
+    const result = {
+      ...userWithoutPassword,
+      accessToken,
+    };
+    res.status(200).json(result);
   } else {
     return res.status(200).json(null);
   }
