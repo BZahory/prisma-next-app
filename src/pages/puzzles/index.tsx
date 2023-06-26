@@ -6,7 +6,7 @@ interface Props {}
 
 export default function Puzzles({}: Props) {
   return (
-    <main className="flex flex-col min-h-screen">
+    <main className="flex flex-col h-screen">
       <Header />
       <h1 className="text-5xl mt-5 font-bold self-center">Puzzles</h1>
       <div className="flex w-full">

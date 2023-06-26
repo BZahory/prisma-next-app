@@ -16,7 +16,7 @@ export default function Login({}: Props) {
   };
 
   return (
-    <main className="flex flex-col min-h-screen gap-y-10 justify-center items-center">
+    <main className="flex flex-col h-screen gap-y-10 justify-center items-center">
       <img src="/logo.png" alt="logo" className="w-16 sm:w-20" />
 
       <div
