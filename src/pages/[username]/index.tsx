@@ -1,17 +1,36 @@
 import Header from "@/components/Header";
-import { Status } from "@/test/puzzles";
-import currentUser from "@/test/user";
+import { Status, User } from "@/lib/types/sql";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
-import React, { useState } from "react";
-import Input from "../../components/Input";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 
 interface Props {}
 
 // handles both login and sign-up
 export default function Profile({}: Props) {
-  const { username, puzzles } = currentUser; //TODO: link to API
+  const { data: session } = useSession();
 
-  return currentUser ? (
+  const { asPath } = useRouter();
+
+  const headers = new Headers();
+  headers.append("Content-Type", "application/json");
+  if (session?.user.accessToken) {
+    headers.append("Authorization", session.user.accessToken);
+  }
+
+  const [user, setUser] = useState<User>();
+
+  useEffect(() => {
+    fetch(`http://localhost:3000/api/user/${asPath?.split("@")[1]}`, {
+      method: "GET",
+      headers,
+    }).then(async (res) => {
+      setUser(await res.json());
+    });
+  }, [asPath]);
+
+  return user ? (
     <main className="flex flex-col h-screen">
       <Header />
 
@@ -20,19 +39,19 @@ export default function Profile({}: Props) {
           className={`flex flex-col w-3/4 sm:w-1/2 bg-white rounded-xl overflow-hidden divide-y border [&>*]:p-4`}
         >
           <Link
-            href={`/@${username}`}
+            href={`/@${user.username}`}
             className="text-2xl text-center text-blue-500"
           >
-            @{username}
+            @{user.username}
           </Link>
           <div className="flex flex-col items-center bg-gray-100">
             <h1 className="font-bold text-4xl items-center">Puzzles</h1>
-            {puzzles.map(({ name, description, status, id }) => (
+            {user.puzzles.map(({ title, description, status, id }) => (
               <Link
                 href={`/puzzles/${id}`}
                 className="flex-1 flex flex-col w-3/4 bg-gray-500 items-center cursor-pointer hover:bg-gray-400 mt-2 rounded-xl"
               >
-                <h1 className="text-3xl font-bold">{name}</h1>
+                <h1 className="text-3xl font-bold">{title}</h1>
                 <h3
                   className={`text-xl ${
                     status === Status.COMPLETED
