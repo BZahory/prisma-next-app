@@ -9,11 +9,9 @@ interface Props {}
 
 // handles both login and sign-up
 export default function Profile({}: Props) {
-  const [isSigningUp, setIsSigningUp] = useState(false);
-
   const { username, puzzles } = currentUser; //TODO: link to API
 
-  return (
+  return currentUser ? (
     <main className="flex flex-col h-screen">
       <Header />
 
@@ -51,5 +49,7 @@ export default function Profile({}: Props) {
         </div>
       </div>
     </main>
+  ) : (
+    <h1 className="text-4xl h-screen">User Not Found</h1>
   );
 }
