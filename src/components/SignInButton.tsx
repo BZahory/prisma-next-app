@@ -2,7 +2,11 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-export default function SignInButton() {
+interface Props {
+  className?: string;
+}
+
+export default function SignInButton({ className }: Props) {
   const { pathname: currentPath } = useRouter();
 
   const session = useSession();
@@ -11,7 +15,7 @@ export default function SignInButton() {
 
   return (
     <Link
-      className="w-3/4 self-center rounded-md p-4"
+      className={className}
       onClick={() => (isSignedIn ? signOut() : {})}
       href={!isSignedIn ? "/login" : currentPath}
     >

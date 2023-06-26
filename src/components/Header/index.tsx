@@ -48,8 +48,8 @@ export default function Header({}: Props) {
                 </Link>
               </li>
             ))}
+            <SignInButton className={ITEM_CLASSES(currentPath === "/login")} />
           </ul>
-          <SignInButton />
         </div>
       </div>
     </nav>
