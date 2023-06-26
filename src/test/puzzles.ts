@@ -1,4 +1,4 @@
-interface Puzzle {
+export interface Puzzle {
   id: number;
   name: string;
   savedAnswer: string;
