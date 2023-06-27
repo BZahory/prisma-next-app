@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
-import { signIn as nextAuthSignIn } from "next-auth/react";
+import { signIn as nextAuthSignIn, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import React, { SyntheticEvent, useState } from "react";
 import Input from "../../components/Input";
 
@@ -7,6 +8,14 @@ interface Props {}
 
 // handles both login and sign-up
 export default function Login({}: Props) {
+  const isSessionUser = Boolean(useSession().data?.user);
+
+  const { push: navigate } = useRouter();
+
+  if (isSessionUser) {
+    navigate("/puzzles");
+  }
+
   const [isSigningUp, setIsSigningUp] = useState(false);
 
   const [username, setUserName] = useState("");

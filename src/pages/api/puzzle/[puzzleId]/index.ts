@@ -1,4 +1,3 @@
-import useForceLogin from "@/lib/hooks/useForceLogin";
 import { verifyJwt } from "@/lib/jwt";
 import prisma from "@/lib/prisma";
 import { Status } from "@/lib/types/sql";
@@ -10,8 +9,6 @@ interface RequestBody {
 }
 
 export default async function POST(req: Request, res: Response) {
-  useForceLogin();
-
   const { savedAnswer, submittedAnswer }: RequestBody = await req.body;
 
   const token = req.headers.authorization;
@@ -28,16 +25,17 @@ export default async function POST(req: Request, res: Response) {
   }
   const { answer, savedAnswer: currentSavedAnswer } = puzzleFromDatabase;
 
+  const puzzleOverrides = {
+    status: answer === submittedAnswer ? Status.COMPLETED : Status.IN_PROGRESS,
+    savedAnswer: savedAnswer ?? currentSavedAnswer,
+  };
+
   await prisma.puzzle.update({
     where: {
       id: Number(req.query.puzzleId),
     },
-    data: {
-      status:
-        answer === submittedAnswer ? Status.COMPLETED : Status.IN_PROGRESS,
-      savedAnswer: savedAnswer ?? currentSavedAnswer,
-    },
+    data: puzzleOverrides,
   });
 
-  res.status(200);
+  res.status(200).json({ ...puzzleFromDatabase, ...puzzleOverrides });
 }

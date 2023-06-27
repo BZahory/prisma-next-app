@@ -10,6 +10,7 @@ import useForceLogin from "@/lib/hooks/useForceLogin";
 
 export default function Puzzle() {
   useForceLogin();
+
   const { asPath: currentPath } = useRouter();
 
   const puzzleId = currentPath.split("/")[2];
@@ -20,7 +21,13 @@ export default function Puzzle() {
 
   const user = useDatabaseUser();
 
-  const puzzle = user?.puzzles.find(({ id }) => id === Number(puzzleId));
+  const [puzzle, setPuzzle] = useState(
+    user?.puzzles.find(({ id }) => id === Number(puzzleId))
+  );
+
+  useEffect(() => {
+    setPuzzle(user?.puzzles.find(({ id }) => id === Number(puzzleId)));
+  }, [user]);
 
   const [answer, setAnswer] = useState("");
 
@@ -28,25 +35,17 @@ export default function Puzzle() {
     if (puzzle?.savedAnswer) setAnswer(puzzle.savedAnswer);
   }, [puzzle?.savedAnswer]);
 
-  const handleSubmit = () => {
+  const updateDBPuzzle = (target: "submittedAnswer" | "savedAnswer") =>
     fetch(`http://localhost:3000/api/puzzle/${puzzle?.id}`, {
       method: "POST",
       headers,
       body: JSON.stringify({
-        submittedAnswer: answer,
+        [target]: answer,
       }),
+    }).then(async (res) => {
+      const newPuzzle = await res.json();
+      setPuzzle(newPuzzle);
     });
-  };
-
-  const handleSave = () => {
-    fetch(`http://localhost:3000/api/puzzle/${puzzle?.id}`, {
-      method: "POST",
-      headers,
-      body: JSON.stringify({
-        savedAnswer: answer,
-      }),
-    });
-  };
 
   return puzzle ? (
     <div className="flex flex-col h-screen">
@@ -82,13 +81,13 @@ export default function Puzzle() {
             type="button"
             className="bg-blue-500 hover:bg-opacity-90 text-white rounded-full w-1/2 self-center p-2 cursor-pointer"
             value="Submit"
-            onClick={handleSubmit}
+            onClick={() => updateDBPuzzle("submittedAnswer")}
           />
           <Input
             type="button"
             className="bg-blue-400 hover:bg-opacity-90 text-white rounded-full w-1/2 self-center p-2 cursor-pointer"
             value="Save"
-            onClick={handleSave}
+            onClick={() => updateDBPuzzle("savedAnswer")}
           />
         </div>
       </div>
