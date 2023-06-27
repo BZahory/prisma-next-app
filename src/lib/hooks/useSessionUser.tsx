@@ -1,15 +1,12 @@
 import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { User } from "../types/sql";
+import { createAuthHeader } from "../utils/auth";
 
-export default function useSessionUser() {
+export default function useDatabaseUser() {
   const sessionUser = useSession().data?.user;
 
-  const headers = new Headers();
-  headers.append("Content-Type", "application/json");
-  if (sessionUser?.accessToken) {
-    headers.append("Authorization", sessionUser.accessToken);
-  }
+  const headers = createAuthHeader(sessionUser?.accessToken);
 
   const [user, setUser] = useState<User>();
 
