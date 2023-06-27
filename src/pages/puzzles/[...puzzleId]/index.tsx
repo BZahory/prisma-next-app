@@ -18,8 +18,6 @@ export default function Puzzle() {
 
   const session = useSession().data;
 
-  const headers = createAuthHeader(session?.user.accessToken);
-
   const user = useDatabaseUser();
 
   const [puzzle, setPuzzle] = useState(
@@ -39,7 +37,7 @@ export default function Puzzle() {
   const updateDBPuzzle = (target: "submittedAnswer" | "savedAnswer") =>
     fetch(`http://localhost:3000/api/puzzle/${puzzle?.id}`, {
       method: "POST",
-      headers,
+      headers: createAuthHeader(session?.user.accessToken),
       body: JSON.stringify({
         [target]: answer,
       }),
