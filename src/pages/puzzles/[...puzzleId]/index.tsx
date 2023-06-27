@@ -4,27 +4,32 @@ import { useEffect, useState } from "react";
 import Input from "@/components/Input";
 import { useSession } from "next-auth/react";
 import { Status } from "@/lib/types/sql";
-import useSessionUser from "@/lib/hooks/useSessionUser";
+import useDatabaseUser from "@/lib/hooks/useSessionUser";
+import { createAuthHeader } from "@/lib/utils/auth";
 
 export default function Puzzle() {
   const { asPath: currentPath } = useRouter();
 
   const puzzleId = currentPath.split("/")[2];
 
-  const session = useSession().data?.user;
+  const session = useSession().data;
 
-  const user = useSessionUser();
+  const headers = createAuthHeader(session?.user.accessToken);
+
+  const user = useDatabaseUser();
 
   const puzzle = user?.puzzles.find(({ id }) => id === Number(puzzleId));
 
-  const [answer, setAnswer] = useState(puzzle?.savedAnswer || "");
+  const [answer, setAnswer] = useState("");
+
+  useEffect(() => {
+    if (puzzle?.savedAnswer) setAnswer(puzzle.savedAnswer);
+  }, [puzzle?.savedAnswer]);
 
   const handleSubmit = () => {
     fetch(`http://localhost:3000/api/puzzle/${puzzle?.id}`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers,
       body: JSON.stringify({
         submittedAnswer: answer,
       }),
@@ -34,9 +39,7 @@ export default function Puzzle() {
   const handleSave = () => {
     fetch(`http://localhost:3000/api/puzzle/${puzzle?.id}`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers,
       body: JSON.stringify({
         savedAnswer: answer,
       }),

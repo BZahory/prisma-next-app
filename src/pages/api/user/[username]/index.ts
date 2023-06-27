@@ -32,7 +32,7 @@ export default async function GET(req: Request, res: Response) {
   });
 
   if (!token || !verifyJwt(token)) {
-    const censoredUserPuzzles = userPuzzles.map((userPuzzle) => {
+    const censoredUserPuzzles = userPuzzles?.map((userPuzzle) => {
       userPuzzle.savedAnswer = "";
       userPuzzle["authorId"];
       return userPuzzle;

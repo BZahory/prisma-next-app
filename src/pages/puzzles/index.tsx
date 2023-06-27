@@ -1,4 +1,4 @@
-import useSessionUser from "@/lib/hooks/useSessionUser";
+import useDatabaseUser from "@/lib/hooks/useSessionUser";
 import { Status } from "@/lib/types/sql";
 import Link from "next/link";
 import Header from "../../components/Header";
@@ -6,14 +6,14 @@ import Header from "../../components/Header";
 interface Props {}
 
 export default function Puzzles({}: Props) {
-  const user = useSessionUser();
+  const user = useDatabaseUser();
 
   return (
     <main className="flex flex-col h-screen">
       <Header />
       <h1 className="text-5xl mt-5 font-bold self-center">Puzzles</h1>
       <div className="flex w-full">
-        {user?.puzzles.map(({ title, description, status, id }) => (
+        {user?.puzzles?.map(({ title, description, status, id }) => (
           <Link
             href={`/puzzles/${id}`}
             className="flex-1 flex flex-col w-1/2 p-2 rounded-xl bg-gray-500 items-center m-10 cursor-pointer hover:bg-gray-400"
