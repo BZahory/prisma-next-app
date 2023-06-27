@@ -27,7 +27,7 @@ export default function Puzzle() {
 
   useEffect(() => {
     setPuzzle(user?.puzzles.find(({ id }) => id === Number(puzzleId)));
-  }, [user]);
+  }, [user, puzzleId]);
 
   const [answer, setAnswer] = useState("");
 

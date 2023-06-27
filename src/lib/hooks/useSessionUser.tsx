@@ -20,7 +20,7 @@ export default function useDatabaseUser() {
         setUser(await res.json());
       });
     }
-  }, [sessionUser]);
+  }, [sessionUser, headers]);
 
   return user;
 }

@@ -25,7 +25,7 @@ export default function Profile({}: Props) {
     }).then(async (res) => {
       setUser(await res.json());
     });
-  }, [asPath]);
+  }, [asPath, headers]);
 
   return user ? (
     <main className="flex flex-col h-screen">

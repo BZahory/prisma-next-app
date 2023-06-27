@@ -11,5 +11,5 @@ export default function useForceLogin() {
     if (status === "unauthenticated") {
       navigate("/login");
     }
-  }, [session]);
+  }, [session, navigate]);
 }
