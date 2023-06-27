@@ -6,8 +6,10 @@ import { useSession } from "next-auth/react";
 import { Status } from "@/lib/types/sql";
 import useDatabaseUser from "@/lib/hooks/useSessionUser";
 import { createAuthHeader } from "@/lib/utils/auth";
+import useForceLogin from "@/lib/hooks/useForceLogin";
 
 export default function Puzzle() {
+  useForceLogin();
   const { asPath: currentPath } = useRouter();
 
   const puzzleId = currentPath.split("/")[2];
