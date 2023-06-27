@@ -2,6 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import SignInButton from "./SignInButton";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
 
 const ITEM_CLASSES = (isSelected: boolean) =>
   `block border-0 hover:text-blue-700 ${isSelected ? "text-blue-500" : ""}`;
@@ -20,6 +21,8 @@ const NAV_ITEMS: NavItem[] = [
 
 export default function Header() {
   const { pathname: currentPath } = useRouter();
+
+  const userFromSession = useSession().data?.user;
 
   return (
     <nav className="bg-white border-gray-200">
@@ -49,6 +52,16 @@ export default function Header() {
                 </Link>
               </li>
             ))}
+            {userFromSession && (
+              <li key="Profile">
+                <Link
+                  href={`/@${userFromSession.username}`}
+                  className={ITEM_CLASSES(currentPath === "/[username]")}
+                >
+                  Profile
+                </Link>
+              </li>
+            )}
             <SignInButton className={ITEM_CLASSES(currentPath === "/login")} />
           </ul>
         </div>
