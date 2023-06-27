@@ -1,4 +1,4 @@
-import { verifyJwt } from "@/lib/jwt";
+import { verifyJwt } from "@/lib/utils/jwt";
 import prisma from "@/lib/prisma";
 import type { Request, Response } from "express";
 

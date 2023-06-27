@@ -1,7 +1,7 @@
 import prisma from "@/lib/prisma";
 import bcrypt from "bcrypt";
 import { Request, Response } from "express";
-import { signJwtAccessToken } from "@/lib/jwt";
+import { signJwtAccessToken } from "@/lib/utils/jwt";
 
 interface RequestBody {
   username: string;
