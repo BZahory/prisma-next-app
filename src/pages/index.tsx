@@ -1,9 +1,9 @@
-import useDatabaseUser from "@/lib/hooks/useSessionUser";
+import useForceLogin from "@/lib/hooks/useForceLogin";
 import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  const user = useDatabaseUser();
+  useForceLogin();
   return <div>TODO: make home page</div>;
 }
