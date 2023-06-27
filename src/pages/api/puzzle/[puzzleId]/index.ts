@@ -1,3 +1,4 @@
+import useForceLogin from "@/lib/hooks/useForceLogin";
 import { verifyJwt } from "@/lib/jwt";
 import prisma from "@/lib/prisma";
 import { Status } from "@/lib/types/sql";
@@ -9,6 +10,8 @@ interface RequestBody {
 }
 
 export default async function POST(req: Request, res: Response) {
+  useForceLogin();
+
   const { savedAnswer, submittedAnswer }: RequestBody = await req.body;
 
   const token = req.headers.authorization;

@@ -1,3 +1,4 @@
+import useForceLogin from "@/lib/hooks/useForceLogin";
 import useDatabaseUser from "@/lib/hooks/useSessionUser";
 import { Status } from "@/lib/types/sql";
 import Link from "next/link";
@@ -6,6 +7,8 @@ import Header from "../../components/Header";
 interface Props {}
 
 export default function Puzzles({}: Props) {
+  useForceLogin();
+
   const user = useDatabaseUser();
 
   return (
