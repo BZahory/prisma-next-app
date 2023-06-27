@@ -25,7 +25,13 @@ export default function Header() {
     <nav className="bg-white border-gray-200">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Link href="/" className="flex items-center">
-          <Image src="/logo.png" alt="logo" className="w-8 mr-3" />
+          <Image
+            width={32}
+            height={32}
+            src="/logo.png"
+            alt="logo"
+            className="mr-3"
+          />
 
           <span className="self-center text-2xl font-semibold whitespace-nowrap">
             Tad-Thrust

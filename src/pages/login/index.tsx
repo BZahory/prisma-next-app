@@ -56,7 +56,13 @@ export default function Login() {
     <main className="flex flex-col h-screen">
       <Header />
       <div className="flex flex-col h-full gap-y-10 justify-center items-center">
-        <Image src="/logo.png" alt="logo" className="w-16 sm:w-20" />
+        <Image
+          width={64}
+          height={64}
+          src="/logo.png"
+          alt="logo"
+          className="w-16 sm:w-20"
+        />
 
         <div
           className={`flex flex-col w-3/4 sm:w-1/2 bg-white rounded-xl overflow-hidden divide-y border [&>*]:p-4`}
