@@ -49,7 +49,7 @@ export default function Puzzle() {
     });
 
   return puzzle ? (
-    <div className="flex flex-col h-screen">
+    <div className="flex flex-col overflow-hidden h-screen">
       <Header />
       <div className="relative flex h-full">
         <div className="flex-1 flex flex-col h-full p-4">
