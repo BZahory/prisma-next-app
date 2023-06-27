@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import SignInButton from "../SignInButton";
+import Image from "next/image";
 
 const ITEM_CLASSES = (isSelected: boolean) =>
   `block border-0 hover:text-blue-700 ${isSelected ? "text-blue-500" : ""}`;
@@ -26,7 +27,7 @@ export default function Header({}: Props) {
     <nav className="bg-white border-gray-200">
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <Link href="/" className="flex items-center">
-          <img src="/logo.png" alt="logo" className="w-8 mr-3" />
+          <Image src="/logo.png" alt="logo" className="w-8 mr-3" />
 
           <span className="self-center text-2xl font-semibold whitespace-nowrap">
             Tad-Thrust

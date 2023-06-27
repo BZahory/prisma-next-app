@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import { signIn as nextAuthSignIn, useSession } from "next-auth/react";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { SyntheticEvent, useState } from "react";
 import Input from "../../components/Input";
@@ -56,7 +57,7 @@ export default function Login({}: Props) {
     <main className="flex flex-col h-screen">
       <Header />
       <div className="flex flex-col h-full gap-y-10 justify-center items-center">
-        <img src="/logo.png" alt="logo" className="w-16 sm:w-20" />
+        <Image src="/logo.png" alt="logo" className="w-16 sm:w-20" />
 
         <div
           className={`flex flex-col w-3/4 sm:w-1/2 bg-white rounded-xl overflow-hidden divide-y border [&>*]:p-4`}
