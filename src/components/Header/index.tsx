@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import SignInButton from "../SignInButton";
+import SignInButton from "./SignInButton";
 import Image from "next/image";
 
 const ITEM_CLASSES = (isSelected: boolean) =>
