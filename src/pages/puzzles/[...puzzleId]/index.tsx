@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Input from "@/components/Input";
 import { useSession } from "next-auth/react";
 import { Status } from "@/lib/types/sql";
-import useDatabaseUser from "@/lib/hooks/useSessionUser";
+import useDatabaseUser from "@/lib/hooks/useDatabaseUser";
 import { createAuthHeader } from "@/lib/utils/auth";
 import useForceLogin from "@/lib/hooks/useForceLogin";
 import { BUTTON_CLASSES } from "@/lib/constants";

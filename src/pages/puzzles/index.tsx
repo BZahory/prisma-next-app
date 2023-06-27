@@ -1,5 +1,5 @@
 import useForceLogin from "@/lib/hooks/useForceLogin";
-import useDatabaseUser from "@/lib/hooks/useSessionUser";
+import useDatabaseUser from "@/lib/hooks/useDatabaseUser";
 import { Status } from "@/lib/types/sql";
 import Link from "next/link";
 import Header from "../../components/Header";
