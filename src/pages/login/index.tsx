@@ -1,4 +1,5 @@
 import Header from "@/components/Header";
+import { BUTTON_CLASSES } from "@/lib/constants";
 import { signIn as nextAuthSignIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -91,7 +92,7 @@ export default function Login() {
               <Input
                 type="submit"
                 value={isSigningUp ? "Sign Up" : "Login"}
-                className="bg-blue-500 hover:bg-opacity-90 text-white rounded-full w-1/2 self-center p-2 cursor-pointer"
+                className={BUTTON_CLASSES}
               />
             </form>
           </div>

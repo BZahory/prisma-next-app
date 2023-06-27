@@ -7,6 +7,7 @@ import { Status } from "@/lib/types/sql";
 import useDatabaseUser from "@/lib/hooks/useSessionUser";
 import { createAuthHeader } from "@/lib/utils/auth";
 import useForceLogin from "@/lib/hooks/useForceLogin";
+import { BUTTON_CLASSES } from "@/lib/constants";
 
 export default function Puzzle() {
   useForceLogin();
@@ -79,13 +80,13 @@ export default function Puzzle() {
           />
           <Input
             type="button"
-            className="bg-blue-500 hover:bg-opacity-90 text-white rounded-full w-1/2 self-center p-2 cursor-pointer"
+            className={BUTTON_CLASSES}
             value="Submit"
             onClick={() => updateDBPuzzle("submittedAnswer")}
           />
           <Input
             type="button"
-            className="bg-blue-400 hover:bg-opacity-90 text-white rounded-full w-1/2 self-center p-2 cursor-pointer"
+            className={`${BUTTON_CLASSES} bg-blue-400`}
             value="Save"
             onClick={() => updateDBPuzzle("savedAnswer")}
           />
