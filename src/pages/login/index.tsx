@@ -5,10 +5,8 @@ import { useRouter } from "next/router";
 import React, { SyntheticEvent, useState } from "react";
 import Input from "../../components/Input";
 
-interface Props {}
-
 // handles both login and sign-up
-export default function Login({}: Props) {
+export default function Login() {
   const isSessionUser = Boolean(useSession().data?.user);
 
   const { push: navigate } = useRouter();

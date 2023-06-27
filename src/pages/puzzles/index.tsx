@@ -4,9 +4,7 @@ import { Status } from "@/lib/types/sql";
 import Link from "next/link";
 import Header from "../../components/Header";
 
-interface Props {}
-
-export default function Puzzles({}: Props) {
+export default function Puzzles() {
   useForceLogin();
 
   const user = useDatabaseUser();

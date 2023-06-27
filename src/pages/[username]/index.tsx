@@ -6,10 +6,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
-interface Props {}
-
 // handles both login and sign-up
-export default function Profile({}: Props) {
+export default function Profile() {
   const { data: session } = useSession();
 
   const { asPath } = useRouter();

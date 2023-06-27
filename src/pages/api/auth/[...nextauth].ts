@@ -18,7 +18,10 @@ const handler = NextAuth({
           placeholder: "Password",
         },
       },
-      async authorize(credentials: any, req: any) {
+      async authorize(
+        credentials: { username: string; password: string } | undefined,
+        req
+      ) {
         credentials;
         req;
         // Add logic here to look up the user from the credentials supplied

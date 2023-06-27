@@ -6,8 +6,6 @@ import Image from "next/image";
 const ITEM_CLASSES = (isSelected: boolean) =>
   `block border-0 hover:text-blue-700 ${isSelected ? "text-blue-500" : ""}`;
 
-interface Props {}
-
 interface NavItem {
   name: string;
   path: string;
@@ -20,7 +18,7 @@ const NAV_ITEMS: NavItem[] = [
   },
 ];
 
-export default function Header({}: Props) {
+export default function Header() {
   const { pathname: currentPath } = useRouter();
 
   return (

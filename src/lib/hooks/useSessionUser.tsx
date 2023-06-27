@@ -1,5 +1,4 @@
 import { useSession } from "next-auth/react";
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { User } from "../types/sql";
 import { createAuthHeader } from "../utils/auth";
@@ -17,7 +16,8 @@ export default function useDatabaseUser() {
         method: "GET",
         headers,
       }).then(async (res) => {
-        setUser(await res.json());
+        const newUser = await res.json();
+        if (newUser) setUser(newUser);
       });
     }
   }, [sessionUser, headers]);
