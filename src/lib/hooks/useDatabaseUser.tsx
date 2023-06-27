@@ -6,21 +6,19 @@ import { createAuthHeader } from "../utils/auth";
 export default function useDatabaseUser() {
   const sessionUser = useSession().data?.user;
 
-  const headers = createAuthHeader(sessionUser?.accessToken);
-
   const [user, setUser] = useState<User>();
 
   useEffect(() => {
-    if (sessionUser) {
+    if (sessionUser?.username && sessionUser.accessToken) {
       fetch(`http://localhost:3000/api/user/${sessionUser.username}`, {
         method: "GET",
-        headers,
+        headers: createAuthHeader(sessionUser.accessToken),
       }).then(async (res) => {
         const newUser = await res.json();
         if (newUser) setUser(newUser);
       });
     }
-  }, [sessionUser, headers]);
+  }, [sessionUser?.username, sessionUser?.accessToken]);
 
   return user;
 }

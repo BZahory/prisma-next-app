@@ -12,18 +12,16 @@ export default function Profile() {
 
   const { asPath } = useRouter();
 
-  const headers = createAuthHeader(session?.user.accessToken);
-
   const [user, setUser] = useState<User>();
 
   useEffect(() => {
     fetch(`http://localhost:3000/api/user/${asPath?.split("@")[1]}`, {
       method: "GET",
-      headers,
+      headers: createAuthHeader(session?.user.accessToken),
     }).then(async (res) => {
       setUser(await res.json());
     });
-  }, [asPath, headers]);
+  }, [asPath, session?.user.accessToken]);
 
   return user ? (
     <main className="flex flex-col h-screen">

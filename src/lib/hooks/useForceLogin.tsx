@@ -7,9 +7,8 @@ export default function useForceLogin() {
   const session = useSession();
 
   useEffect(() => {
-    const { status } = session;
-    if (status === "unauthenticated") {
+    if (session.status === "unauthenticated") {
       navigate("/login");
     }
-  }, [session, navigate]);
+  }, [session.status, navigate]);
 }
