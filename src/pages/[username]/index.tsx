@@ -45,6 +45,7 @@ export default function Profile({}: Props) {
             <h1 className="font-bold text-4xl items-center">Puzzles</h1>
             {user?.puzzles?.map(({ title, description, status, id }) => (
               <Link
+                key={id}
                 href={`/puzzles/${id}`}
                 className="flex-1 flex flex-col w-3/4 bg-gray-500 cursor-pointer hover:bg-gray-400 mt-2 rounded-xl p-2"
               >

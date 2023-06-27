@@ -39,7 +39,7 @@ export default function Header({}: Props) {
         <div className="block w-auto" id="navbar-default">
           <ul className="font-medium flex border-gray-100 rounded-lg flex-row space-x-8 mt-0 border-0">
             {NAV_ITEMS.map(({ path: routePath, name }) => (
-              <li>
+              <li key={routePath}>
                 <Link
                   href={routePath}
                   className={ITEM_CLASSES(currentPath === routePath)}

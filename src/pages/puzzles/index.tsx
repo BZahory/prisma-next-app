@@ -15,6 +15,7 @@ export default function Puzzles({}: Props) {
       <div className="flex w-full">
         {user?.puzzles?.map(({ title, description, status, id }) => (
           <Link
+            key={id}
             href={`/puzzles/${id}`}
             className="flex-1 flex flex-col w-1/2 p-2 rounded-xl bg-gray-500 items-center m-10 cursor-pointer hover:bg-gray-400"
           >
